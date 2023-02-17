@@ -1,0 +1,94 @@
+// ATM INTERFACE Console Based Application
+import java.util.Scanner;
+import java.util.Vector;
+
+public class ATM2 {
+    public static void main(String args[]) 
+    {
+        float balance = 100000, withdraw = 0, deposit, transfer;
+
+        class History 
+        {
+            String action = new String();
+            float amount = 0;
+            History(String type, float amount) 
+            {
+                this.action = type;
+                this.amount = amount;
+            }
+            public void show()
+            {
+                System.out.println("Action : " + this.action + ", amount : " + this.amount);
+            }
+        }
+
+        Vector<History> history = new Vector<History>(100);
+
+        Scanner sc = new Scanner(System.in);
+        while (true)
+         {
+            System.out.println("Welcome to Simplifier ATM");
+            System.out.println("Choose 1 Transactions History");
+            System.out.println("Choose 2 for withdraw");
+            System.out.println("Choose 3 for Deposit");
+            System.out.println("Choose 4 for Transfer");
+            System.out.println("Choose 5 for Quit");
+            System.out.print("Choose the operaton you want to Perform" + " ");
+
+            int choice = sc.nextInt();
+            switch (choice) 
+            {
+                case 1:
+                    System.out.println("Your Transaction History:");
+                    for (int i = 0; i < history.size(); i++)
+                     history.get(i).show();
+                     break;
+
+                case 2:
+                    System.out.println("Enter money to be withdraw:");
+                    withdraw = sc.nextFloat();
+                    if (balance >= withdraw)
+                     {
+                        balance = balance - withdraw;
+                        history.add(new History("Withdraw", withdraw));
+                        System.out.println("Your money has been successfully withdraw" + " " + withdraw);
+                     }
+                      else
+                       {
+                        System.out.println("insufficient Balance" + " " + withdraw);
+                       }
+                         System.out.println("");
+                          break;
+                
+
+                case 3:
+                    System.out.println("Enter money to be deposited:");
+                    deposit = sc.nextFloat();
+                    balance = balance + deposit;
+                    history.add(new History("deposit", deposit));
+                    System.out.println("Your money has been successfully deposited" + " " + deposit);
+                    System.out.println("");
+                    break;
+        
+                case 4:
+                    System.out.println("Enter money to be transfer:");
+                    transfer = sc.nextFloat();
+                    if (balance >= transfer)
+                     {
+                        balance = balance - transfer;
+                        history.add(new History("transfer", transfer));
+                        System.out.println("Your money has been successfully transfer " + " " + transfer);
+                     } 
+                      else
+                       {
+                        System.out.println("insufficient Balance");
+                       }
+                          System.out.println("");
+                           break;
+                
+                case 5:
+                    System.exit(0);
+            }
+        }
+    }
+}
